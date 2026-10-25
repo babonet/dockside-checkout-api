@@ -1,0 +1,14 @@
+{
+  "name": "dockside-checkout-api",
+  "version": "2.3.0",
+  "private": true,
+  "description": "Prices carts and confirms orders for Dockside Market",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "smoke": "node scripts/smoke.js http://localhost:8080"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

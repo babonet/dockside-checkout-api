@@ -1,0 +1,17 @@
+[
+  { "name": "Health endpoint", "method": "GET", "path": "/health", "expectStatus": 200 },
+  {
+    "name": "Checkout without a discount code",
+    "method": "POST",
+    "path": "/checkout",
+    "body": { "items": [{ "sku": "SKU-1001", "qty": 2, "price": 19.99 }] },
+    "expectStatus": 200
+  },
+  {
+    "name": "Empty cart is rejected",
+    "method": "POST",
+    "path": "/checkout",
+    "body": { "items": [] },
+    "expectStatus": 400
+  }
+]
