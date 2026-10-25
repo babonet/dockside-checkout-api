@@ -9,7 +9,8 @@ const routes = [
     method: 'POST',
     match: (path) => (path === '/checkout' ? {} : null),
     handler: async ({ body }) => {
-      const totals = calculateTotals(body.items);
+      const discountCode = body.discountCode.trim().toUpperCase();
+      const totals = calculateTotals(body.items, discountCode);
       return { status: 200, body: { orderId: randomUUID(), status: 'confirmed', ...totals } };
     },
   },
