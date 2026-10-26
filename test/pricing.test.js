@@ -20,3 +20,19 @@ test('rejects an empty cart', () => {
 test('rejects items with a non-positive quantity', () => {
   assert.throws(() => calculateTotals([{ sku: 'SKU-1001', qty: 0, price: 10 }]), /invalid cart item/);
 });
+
+test('applies the SAVE10 discount code', () => {
+  const totals = calculateTotals([{ sku: 'SKU-1001', qty: 2, price: 50 }], 'SAVE10');
+  assert.equal(totals.discount, 10);
+  assert.equal(totals.total, 90);
+});
+
+test('applies the VIP20 discount code', () => {
+  const totals = calculateTotals([{ sku: 'SKU-1001', qty: 1, price: 100 }], 'VIP20');
+  assert.equal(totals.discount, 20);
+  assert.equal(totals.total, 80);
+});
+
+test('rejects unknown discount codes', () => {
+  assert.throws(() => calculateTotals([{ sku: 'SKU-1001', qty: 1, price: 10 }], 'BOGUS'), /unknown discount code/);
+});
