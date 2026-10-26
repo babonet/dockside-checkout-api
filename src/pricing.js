@@ -1,10 +1,5 @@
 'use strict';
 
-const DISCOUNT_CODES = {
-  SAVE10: { percent: 10 },
-  VIP20: { percent: 20 },
-};
-
 function round(amount) {
   return Math.round(amount * 100) / 100;
 }
@@ -24,18 +19,10 @@ function validateItems(items) {
   }
 }
 
-function calculateTotals(items, discountCode) {
+function calculateTotals(items) {
   validateItems(items);
   const subtotal = round(items.reduce((sum, item) => sum + item.price * item.qty, 0));
-
-  let discount = 0;
-  if (discountCode) {
-    const promo = DISCOUNT_CODES[discountCode];
-    if (!promo) throw badRequest(`unknown discount code ${discountCode}`);
-    discount = round((subtotal * promo.percent) / 100);
-  }
-
-  return { currency: 'USD', subtotal, discount, total: round(subtotal - discount), discountCode: discountCode || null };
+  return { currency: 'USD', subtotal, discount: 0, total: subtotal };
 }
 
-module.exports = { calculateTotals, DISCOUNT_CODES };
+module.exports = { calculateTotals };
